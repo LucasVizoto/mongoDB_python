@@ -94,8 +94,32 @@ def test_select_many_with_OR_filter():
     for doc in response:
         print(doc)
 
+@pytest.mark.skip(reason="Interação com o banco")
 def test_select_by_object_id():
     orders_repository = OrdersRepository(conn)
     object_id = "68865a4bfeefe41b27e0b189"  
     response = orders_repository.select_by_object_id(object_id)
     print(response)
+
+@pytest.mark.skip(reason="Interação com o banco")
+def test_edit_registry():
+    orders_repository = OrdersRepository(conn)
+    orders_repository.edit_registry()
+    object_id = "68865a4bfeefe41b27e0b189"
+    response = orders_repository.select_by_object_id(object_id)
+    print(response)  # Verifica se o cupom foi atualizado para True
+
+@pytest.mark.skip(reason="Interação com o banco")
+def test_edit_many_registries():
+    orders_repository = OrdersRepository(conn)
+    orders_repository.edit_many_registries()
+    object_id = "68865a4bfeefe41b27e0b189"
+    response = orders_repository.select_by_object_id(object_id)
+    print(response)  # Verifica se o cupom foi atualizado para True
+
+def test_edit_many_registries_with_invrement():
+    orders_repository = OrdersRepository(conn)
+    orders_repository.edit_registry_with_increment()
+    object_id = "68865a4bfeefe41b27e0b189"
+    response = orders_repository.select_by_object_id(object_id)
+    print(response)  # Verifica se o cupom foi atualizado para True

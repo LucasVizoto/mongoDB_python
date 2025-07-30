@@ -50,3 +50,26 @@ class OrdersRepository:
         data = collection.find_one({"_id": ObjectId(object_id)})
         return data
     
+    def edit_registry(self) -> None:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+
+        collection.update_one(
+            {"_id": ObjectId('68865a4bfeefe41b27e0b189')}, # dicionário onde eu faço a busca, ou seja filtros
+            {"$set": {"itens.refrigerante.quantidade": 18}} # dicionário com os novos dados 
+        )
+
+    def edit_many_registries(self) -> None:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+
+        collection.update_many(
+            {"itens.refrigerante": {"$exists": True}}, # dicionário onde eu faço a busca, ou seja filtros
+            {"$set": {"itens.refrigerante.quantidade": 22}} # dicionário com os novos dados 
+        )
+
+    def edit_registry_with_increment(self):
+        collection = self.__db_connection.get_collection(self.__collection_name)
+
+        collection.update_one(
+            {"_id": ObjectId('68865a4bfeefe41b27e0b189')}, # dicionário onde eu faço a busca, ou seja filtros
+            {"$inc": {"itens.refrigerante.quantidade": 1}} #quantidade que vou somar no objeto já existene
+        )
