@@ -117,9 +117,20 @@ def test_edit_many_registries():
     response = orders_repository.select_by_object_id(object_id)
     print(response)  # Verifica se o cupom foi atualizado para True
 
+@pytest.mark.skip(reason="Interação com o banco")
 def test_edit_many_registries_with_invrement():
     orders_repository = OrdersRepository(conn)
     orders_repository.edit_registry_with_increment()
     object_id = "68865a4bfeefe41b27e0b189"
     response = orders_repository.select_by_object_id(object_id)
     print(response)  # Verifica se o cupom foi atualizado para True
+
+@pytest.mark.skip(reason="Interação com o banco")
+def test_delete_registry():
+    orders_repository = OrdersRepository(conn)
+    orders_repository.delete_registry()
+
+@pytest.mark.skip(reason="Interação com o banco")
+def test_delete_many_registries():
+    orders_repository = OrdersRepository(conn)
+    orders_repository.delete_many_registries()

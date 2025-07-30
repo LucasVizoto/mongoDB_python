@@ -73,3 +73,17 @@ class OrdersRepository:
             {"_id": ObjectId('68865a4bfeefe41b27e0b189')}, # dicionário onde eu faço a busca, ou seja filtros
             {"$inc": {"itens.refrigerante.quantidade": 1}} #quantidade que vou somar no objeto já existene
         )
+
+    def delete_registry(self) -> None:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+
+        collection.delete_one(
+            {"_id": ObjectId('68865a4bfeefe41b27e0b189')} #filtro de busca 
+        )
+    
+    def delete_many_registries(self) -> None:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+
+        collection.delete_many(
+            {"itens.refrigerante": {"$exists": True}} #filtro de busca 
+        )
