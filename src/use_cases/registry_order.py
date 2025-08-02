@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from src.models.repository.interfaces.orders_repository_interface import OrdersRepositoryInterface
+from src.validators.registry_order_validator import registry_order_validator
 from src.main.http_types.http_request import HttpRequest
 from src.main.http_types.http_response import HttpResponse
 
@@ -12,6 +13,8 @@ class RegistryOrder:
     def registry(self, http_request: HttpRequest) -> HttpResponse:
         try:
             body = http_request.body
+            self.__validate_body(body)
+
             new_order = self.__format_new_order(body)
             self.__registry_order(new_order)
 
@@ -20,11 +23,13 @@ class RegistryOrder:
         except Exception as e:
             return HttpResponse(
                 body={
-                    "error": e,
+                    "error": str(e),
                 },
                 status_code= 400
             )
 
+    def __validate_body(self, body: dict) -> None:
+        registry_order_validator(body)
 
     def __format_new_order(self, body: dict) -> dict:
         new_order = body["data"]
