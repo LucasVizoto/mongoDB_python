@@ -27,6 +27,7 @@ class RegistryFinder:
         return order
     
     def __format_response(self, order: dict) -> HttpResponse:
+        order["_id"] = str(order["_id"])  # Convert ObjectId to string for JSON serialization
         return HttpResponse(
             body={
                 "data": {
